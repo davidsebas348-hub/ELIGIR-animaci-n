@@ -1,4 +1,4 @@
--- actualizado mi compa :v (otra vez)
+-- actualizado mi compa :v 
 
 -- Espera a que el jugador esté listo
 repeat task.wait() until LocalPlayer
@@ -435,62 +435,6 @@ for name in pairs(PACKS) do
 end
 table.sort(packNames)
 
--- =======================
--- Variable para guardar pack activo
--- =======================
-local CurrentPack = nil
-
--- =======================
--- Función para aplicar pack al Character
--- =======================
-local function ApplyPackToCharacter(packName)
-    local pack = PACKS[packName]
-    if not pack then return end
-    CurrentPack = packName
-
-    local character = LocalPlayer.Character
-    if not character then return end
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-    local animate = character:FindFirstChild("Animate")
-    if not animate then return end
-
-    -- Animaciones principales
-    for _, anim in pairs({"Walk","Run","Jump","Fall","SwimIdle","Swim","Climb"}) do
-        local animObj = animate:FindFirstChild(anim)
-        if animObj and pack[anim.."Anim"] then
-            animObj.AnimationId = "rbxassetid://"..pack[anim.."Anim"]
-        end
-    end
-
-    -- Animaciones extra (Idle) si existen en el pack
-    if pack.Idle and type(pack.Idle) == "table" then
-        for i, idleId in ipairs(pack.Idle) do
-            local idleName = "Idle"..i
-            local idleObj = animate:FindFirstChild(idleName)
-            if idleObj then
-                idleObj.AnimationId = "rbxassetid://"..idleId
-            end
-        end
-    end
-end
-
--- =======================
--- Detectar respawn y reaplicar pack
--- =======================
-LocalPlayer.CharacterAdded:Connect(function(newChar)
-    -- Espera a que el Character y Animate estén listos
-    repeat task.wait() until newChar:FindFirstChild("Animate")
-    task.wait(0.5) -- pequeño delay para asegurar que todo cargue
-
-    if CurrentPack then
-        -- Reaplica el pack varias veces por seguridad
-        for i = 1, 3 do
-            ApplyPackToCharacter(CurrentPack)
-            task.wait(0.3)
-        end
-    end
-end)
 
 -- GUI
 local screenGui = Instance.new("ScreenGui")
@@ -644,3 +588,51 @@ for _,packName in ipairs(packNames) do
     end)
 
 end
+
+
+-- =========================
+-- REAPLICADOR DE ANIMACIONES
+-- =========================
+
+
+
+-- Variable global para guardar el pack actual
+local CurrentPack = CurrentPack or nil
+
+-- Función para aplicar un pack al Character
+local function ApplyPackToCharacter(packName)
+    local pack = PACKS[packName]
+    if not pack then return end
+    CurrentPack = packName
+
+    local character = LocalPlayer.Character
+    if not character then return end
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+    local animate = character:FindFirstChild("Animate")
+    if not animate then return end
+
+    for _, anim in pairs({"Walk","Run","Jump","Fall","SwimIdle","Swim","Climb"}) do
+        local animObj = animate:FindFirstChild(anim)
+        if animObj and pack[anim.."Anim"] then
+            animObj.AnimationId = "rbxassetid://"..pack[anim.."Anim"]
+        end
+    end
+end
+
+-- =========================
+-- Detectar respawn y reaplicar
+-- =========================
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+    -- Espera hasta que Animate esté listo
+    repeat task.wait() until newChar:FindFirstChild("Animate")
+    task.wait(0.5) -- espera extra para seguridad
+
+    -- Si hay un pack activo, reaplicar varias veces para asegurar
+    if CurrentPack then
+        for i = 1, 3 do
+            ApplyPackToCharacter(CurrentPack)
+            task.wait(0.3)
+        end
+    end
+end)
