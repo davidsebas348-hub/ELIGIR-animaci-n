@@ -1,0 +1,522 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+-- PACKS
+local PACKS = {
+    ["Adidas Sports"] = {
+        WalkAnim = 18537392113,
+        RunAnim = 18537384940,
+        JumpAnim = 18537380791,
+        FallAnim = 18537367238,
+        SwimIdle = 18537387180,
+        Swim = 18537389531,
+        ClimbAnim = 18537363391,
+        Animation1 = 18537376492,
+        Animation2 = 18537371272
+    },
+
+    ["Elder"] = {
+        WalkAnim = 10921111375,
+        RunAnim = 10921104374,
+        JumpAnim = 10921107367,
+        FallAnim = 10921105765,
+        SwimIdle = 10921110146,
+        Swim = 10921108971,
+        ClimbAnim = 10921100400,
+        Animation1 = 10921101664,
+        Animation2 = 10921102574
+    },
+    
+    ["Princesa"] = {
+    WalkAnim = 941028902,
+    RunAnim = 941015281,
+    JumpAnim = 941008832,
+    FallAnim = 941000007,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 940996062,
+    Animation1 = 941003647,
+    Animation2 = 941013098
+},
+
+["Pirata"] = {
+    WalkAnim = 750785693,
+    RunAnim = 750783738,
+    JumpAnim = 750782230,
+    FallAnim = 750780242,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 750779899,
+    Animation1 = 750781874,
+    Animation2 = 750782770
+}, -- pirata poner de nombre Pirata
+["Fantasma"] = {
+    WalkAnim = 616010382,
+    RunAnim = 616013216,
+    JumpAnim = 616008936,
+    FallAnim = 616005863,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 616003713,
+    Animation1 = 616006778,
+    Animation2 = 616008087
+},
+["CatWalk Glam"] = {
+    WalkAnim = 109168724482748,
+    RunAnim = 81024476153754,
+    JumpAnim = 116936326516985,
+    FallAnim = 92294537340807,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 119377220967554,
+    Animation1 = 133806214992291,
+    Animation2 = 94970088341563
+},
+["Astronauta"] = {
+    WalkAnim = 891667138,
+    RunAnim = 891636393,
+    JumpAnim = 891627522,
+    FallAnim = 891617961,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 891609353,
+    Animation1 = 891621366,
+    Animation2 = 891633237
+},
+["Confidente"] = {
+    WalkAnim = 1070017263,
+    RunAnim = 1070001516,
+    JumpAnim = 1069984524,
+    FallAnim = 1069973677,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 1069946257,
+    Animation1 = 1069977950,
+    Animation2 = 1069987858
+},
+
+    ["Zombie"] = {
+        WalkAnim = 10921355261,
+        RunAnim = 616163682,
+        JumpAnim = 10921351278,
+        FallAnim = 10921350320,
+        SwimIdle = 10921353442,
+        Swim = 10921352344,
+        ClimbAnim = 10921343576,
+        Animation1 = 10921344533,
+        Animation2 = 10921345304
+    },
+
+    [""] = {
+    WalkAnim = 782843345,
+    RunAnim = 782842708,
+    JumpAnim = 782847020,
+    FallAnim = 782846423,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 782843869,
+    Animation1 = 782841498,
+    Animation2 = 782845736
+}, -- poner de nombre Juguete
+
+["Adidas Aura"] = {
+    WalkAnim = 83842218823011,
+    RunAnim = 118320322718866,
+    JumpAnim = 109996626521204,
+    FallAnim = 95603166884636,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 97824616490448,
+    Animation1 = 110211186840347,
+    Animation2 = 114191137265065
+},
+
+["Anciano"] = {
+    WalkAnim = 845403856,
+    RunAnim = 845386501,
+    JumpAnim = 845398858,
+    FallAnim = 845396048,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 845392038,
+    Animation1 = 845397899,
+    Animation2 = 845400520
+},
+
+["..."] = {
+    WalkAnim = 122150855457006,
+    RunAnim = 3236836670,
+    JumpAnim = 656117878,
+    FallAnim = 92294537340807,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 88763136693023,
+    Animation1 = 3293641938,
+    Animation2 = 3293642554
+},
+
+["Vaquero"] = {
+    WalkAnim = 1014421541,
+    RunAnim = 1014401683,
+    JumpAnim = 1014394726,
+    FallAnim = 1014384571,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1014380606,
+    Animation1 = 1014390418,
+    Animation2 = 1014398616
+},
+
+["Vampiro"] = {
+    WalkAnim = 1083473930,
+    RunAnim = 1083462077,
+    JumpAnim = 1083455352,
+    FallAnim = 1083443587,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1083439238,
+    Animation1 = 1083445855,
+    Animation2 = 1083450166
+},
+
+["Zombie Clásico"] = {
+    WalkAnim = 616168032,
+    RunAnim = 616163682,
+    JumpAnim = 616161997,
+    FallAnim = 616157476,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 616156119,
+    Animation1 = 616158929,
+    Animation2 = 616160636
+},
+
+["Caricatura"] = {
+    WalkAnim = 742640026,
+    RunAnim = 742638842,
+    JumpAnim = 742637942,
+    FallAnim = 742637151,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 742636889,
+    Animation1 = 742637544,
+    Animation2 = 742638445
+},
+
+["Ninja"] = {
+    WalkAnim = 656121766,
+    RunAnim = 656118852,
+    JumpAnim = 656117878,
+    FallAnim = 656115606,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 656114359,
+    Animation1 = 656117400,
+    Animation2 = 656118341
+},
+
+["Walmart"] = {
+    WalkAnim = 18747074203,
+    RunAnim = 18747070484,
+    JumpAnim = 18747069148,
+    FallAnim = 18747062535,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 18747060903,
+    Animation1 = 18747067405,
+    Animation2 = 18747063918
+},
+
+["Estrella Pop"] = {
+    WalkAnim = 1212980338,
+    RunAnim = 1212980348,
+    JumpAnim = 1212954642,
+    FallAnim = 1212900995,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1213044953,
+    Animation1 = 1212900985,
+    Animation2 = 1212900985
+},
+
+["Furtivo"] = {
+    WalkAnim = 1132510133,
+    RunAnim = 1132494274,
+    JumpAnim = 1132489853,
+    FallAnim = 1132469004,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1132461372,
+    Animation1 = 1132473842,
+    Animation2 = 1132477671
+},
+
+["Patrol"] = {
+    WalkAnim = 1151231493,
+    RunAnim = 1150967949,
+    JumpAnim = 1150944216,
+    FallAnim = 1148863382,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1148811837,
+    Animation1 = 1149612882,
+    Animation2 = 1150842221
+},
+
+["Levitación"] = {
+    WalkAnim = 616013216,
+    RunAnim = 616010382,
+    JumpAnim = 616008936,
+    FallAnim = 616005863,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 616003713,
+    Animation1 = 616006778,
+    Animation2 = 616008087
+},
+
+["Sport"] = {
+    WalkAnim = 110358958299415,
+    RunAnim = 117333533048078,
+    JumpAnim = 119846112151352,
+    FallAnim = 129773241321032,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 134630013742019,
+    Animation1 = 92080889861410,
+    Animation2 = 74451233229259
+},
+
+["Caballero"] = {
+    WalkAnim = 657552124,
+    RunAnim = 657564596,
+    JumpAnim = 658409194,
+    FallAnim = 657600338,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 658360781,
+    Animation1 = 657595757,
+    Animation2 = 657568135
+},
+
+["Heroe"] = {
+    WalkAnim = 616122287,
+    RunAnim = 616117076,
+    JumpAnim = 616115533,
+    FallAnim = 616108001,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 616104706,
+    Animation1 = 616111295,
+    Animation2 = 616113536
+},
+
+["E.L.F"] = {
+    WalkAnim = 16738340646,
+    RunAnim = 16738337225,
+    JumpAnim = 16738336650,
+    FallAnim = 16738333171,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 16738332169,
+    Animation1 = 16738333868,
+    Animation2 = 16738334710
+},
+
+["Adiddas"] = {
+    WalkAnim = 122150855457006,
+    RunAnim = 82598234841035,
+    JumpAnim = 75290611992385,
+    FallAnim = 98600215928904,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 88763136693023,
+    Animation1 = 122257458498464,
+    Animation2 = 102357151005774
+},
+
+
+["Hombre Lobo"] = {
+    WalkAnim = 1083178339,
+    RunAnim = 1083216690,
+    JumpAnim = 1083218792,
+    FallAnim = 1083189019,
+    SwimIdle = 913389285,
+    Swim = 913384386,
+    ClimbAnim = 1083182000,
+    Animation1 = 1083195517,
+    Animation2 = 1083214717
+},
+
+    ["Mage"] = {
+        WalkAnim = 10921152678,
+        RunAnim = 10921148209,
+        JumpAnim = 10921149743,
+        FallAnim = 10921148939,
+        SwimIdle = 10921151661,
+        Swim = 10921150788,
+        ClimbAnim = 10921143404,
+        Animation1 = 10921144709,
+        Animation2 = 10921145797
+    }
+}
+
+local packNames = {}
+for name in pairs(PACKS) do
+    table.insert(packNames,name)
+end
+table.sort(packNames)
+
+-- GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AnimationEditorGUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- ICONO
+local icon = Instance.new("TextButton")
+icon.Size = UDim2.new(0,50,0,50)
+icon.Position = UDim2.new(0,10,0,200)
+icon.Text = "Anim"
+icon.BackgroundColor3 = Color3.fromRGB(50,50,50)
+icon.TextColor3 = Color3.fromRGB(255,255,255)
+icon.Parent = screenGui
+Instance.new("UICorner",icon)
+
+-- GUI PRINCIPAL
+local gui = Instance.new("Frame")
+gui.Size = UDim2.new(0,300,0,350)
+gui.Position = UDim2.new(0.5,-150,0.5,-175)
+gui.BackgroundColor3 = Color3.fromRGB(25,25,25)
+gui.Visible = false
+gui.Parent = screenGui
+Instance.new("UICorner",gui)
+
+-- DRAG
+local function makeDraggable(frame)
+    local dragging, dragStart, startPos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if dragging then
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = false
+        end
+    end)
+end
+
+makeDraggable(icon)
+makeDraggable(gui)
+
+icon.Activated:Connect(function()
+    gui.Visible = not gui.Visible
+end)
+
+-- UTILIDADES
+local function ensureAnim(folder,name)
+    if not folder then return end
+
+    local anim = folder:FindFirstChild(name)
+
+    if not anim then
+        anim = Instance.new("Animation")
+        anim.Name = name
+        anim.Parent = folder
+    end
+
+    return anim
+end
+
+local function setAnim(anim,id)
+    if anim and id then
+        anim.AnimationId = "rbxassetid://"..id
+    end
+end
+
+-- APLICAR PACK
+local function applyPack(packName)
+
+    local char = player.Character
+    if not char then return end
+
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    local animate = char:FindFirstChild("Animate")
+
+    if not hum or not animate then return end
+
+    local pack = PACKS[packName]
+    if not pack then return end
+
+    setAnim(ensureAnim(animate.walk,"WalkAnim"),pack.WalkAnim)
+    setAnim(ensureAnim(animate.run,"RunAnim"),pack.RunAnim)
+    setAnim(ensureAnim(animate.jump,"JumpAnim"),pack.JumpAnim)
+    setAnim(ensureAnim(animate.fall,"FallAnim"),pack.FallAnim)
+    setAnim(ensureAnim(animate.climb,"ClimbAnim"),pack.ClimbAnim)
+    setAnim(ensureAnim(animate.swim,"Swim"),pack.Swim)
+    setAnim(ensureAnim(animate.swimidle,"SwimIdle"),pack.SwimIdle)
+
+    local idle = animate:FindFirstChild("idle")
+
+    if idle then
+        setAnim(ensureAnim(idle,"Animation1"),pack.Animation1)
+        setAnim(ensureAnim(idle,"Animation2"),pack.Animation2)
+    end
+
+    animate.Disabled = true
+    task.wait(0.05)
+    animate.Disabled = false
+
+end
+
+-- SCROLL
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1,-20,1,-20)
+scroll.Position = UDim2.new(0,10,0,10)
+scroll.CanvasSize = UDim2.new(0,0,0,#packNames*40)
+scroll.ScrollBarThickness = 6
+scroll.BackgroundTransparency = 1
+scroll.Parent = gui
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0,5)
+layout.Parent = scroll
+
+-- BOTONES
+for _,packName in ipairs(packNames) do
+
+    local btn = Instance.new("TextButton")
+
+    btn.Size = UDim2.new(1,-5,0,35)
+    btn.Text = packName
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 15
+    btn.TextColor3 = Color3.fromRGB(255,255,255)
+    btn.BackgroundColor3 = Color3.fromRGB(45,45,45)
+    btn.Parent = scroll
+
+    Instance.new("UICorner",btn)
+
+    btn.Activated:Connect(function()
+        applyPack(packName)
+    end)
+
+end
