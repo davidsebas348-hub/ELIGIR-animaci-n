@@ -1,4 +1,4 @@
--- actualizado mi compa :v ( de njvro xD)
+-- actualizado mi compa :v 
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -432,12 +432,14 @@ for name in pairs(PACKS) do
 end
 table.sort(packNames)
 
--- Guardar el pack que está activo actualmente
+-- =======================
+-- Variable para guardar pack activo
+-- =======================
 local CurrentPack = nil
 
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
+-- =======================
+-- Función para aplicar pack al Character
+-- =======================
 local function ApplyPackToCharacter(packName)
     local pack = PACKS[packName]
     if not pack then return end
@@ -450,13 +452,42 @@ local function ApplyPackToCharacter(packName)
     local animate = character:FindFirstChild("Animate")
     if not animate then return end
 
+    -- Animaciones principales
     for _, anim in pairs({"Walk","Run","Jump","Fall","SwimIdle","Swim","Climb"}) do
         local animObj = animate:FindFirstChild(anim)
         if animObj and pack[anim.."Anim"] then
             animObj.AnimationId = "rbxassetid://"..pack[anim.."Anim"]
         end
     end
+
+    -- Animaciones extra (Idle) si existen en el pack
+    if pack.Idle and type(pack.Idle) == "table" then
+        for i, idleId in ipairs(pack.Idle) do
+            local idleName = "Idle"..i
+            local idleObj = animate:FindFirstChild(idleName)
+            if idleObj then
+                idleObj.AnimationId = "rbxassetid://"..idleId
+            end
+        end
+    end
 end
+
+-- =======================
+-- Detectar respawn y reaplicar pack
+-- =======================
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+    -- Espera a que el Character y Animate estén listos
+    repeat task.wait() until newChar:FindFirstChild("Animate")
+    task.wait(0.5) -- pequeño delay para asegurar que todo cargue
+
+    if CurrentPack then
+        -- Reaplica el pack varias veces por seguridad
+        for i = 1, 3 do
+            ApplyPackToCharacter(CurrentPack)
+            task.wait(0.3)
+        end
+    end
+end)
 
 -- GUI
 local screenGui = Instance.new("ScreenGui")
@@ -610,18 +641,3 @@ for _,packName in ipairs(packNames) do
     end)
 
 end
-
--- =======================
--- Detectar respawn
--- =======================
-LocalPlayer.CharacterAdded:Connect(function(newChar)
-    task.wait(1) -- Espera que el personaje cargue
-
-    if CurrentPack then
-        -- Reaplica el pack varias veces para asegurar que quede bien
-        for i = 1, 3 do
-            ApplyPackToCharacter(CurrentPack)
-            task.wait(0.3)
-        end
-    end
-end)
