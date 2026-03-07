@@ -584,8 +584,9 @@ for _,packName in ipairs(packNames) do
     Instance.new("UICorner",btn)
 
     btn.Activated:Connect(function()
-        applyPack(packName)
-    end)
+    CurrentPack = packName       -- Guarda el pack seleccionado
+    applyPack(packName)          -- Aplica el pack al momento
+end)
 
 end
 
