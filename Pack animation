@@ -1,4 +1,7 @@
--- actualizado mi compa :v 
+-- actualizado mi compa :v (otra vez)
+
+-- Espera a que el jugador esté listo
+repeat task.wait() until LocalPlayer
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
