@@ -1,3 +1,5 @@
+-- actualizado mi compa :v
+
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
@@ -108,7 +110,7 @@ local PACKS = {
         Animation2 = 10921345304
     },
 
-    [""] = {
+    ["Juguete"] = {
     WalkAnim = 782843345,
     RunAnim = 782842708,
     JumpAnim = 782847020,
@@ -130,6 +132,90 @@ local PACKS = {
     ClimbAnim = 97824616490448,
     Animation1 = 110211186840347,
     Animation2 = 114191137265065
+},
+
+["Adidas Sports"] = {
+    WalkAnim = 18537392113,
+    RunAnim = 18537384940,
+    JumpAnim = 18537380791,
+    FallAnim = 18537367238,
+    SwimIdle = 18537387180,
+    Swim = 18537389531,
+    ClimbAnim = 18537363391,
+    Animation1 = 18537376492,
+    Animation2 = 18537371272
+},
+
+["Adidas Community"] = {
+    WalkAnim = 122150855457006,
+    RunAnim = 82598234841035,
+    JumpAnim = 75290611992385,
+    FallAnim = 98600215928904,
+    SwimIdle = 109346520324160,
+    Swim = 133308483266208,
+    ClimbAnim = 88763136693023,
+    Animation1 = 122257458498464,
+    Animation2 = 102357151005774
+},
+
+["Adidas Aura"] = {
+    WalkAnim = 83842218823011,
+    RunAnim = 118320322718866,
+    JumpAnim = 109996626521204,
+    FallAnim = 95603166884636,
+    SwimIdle = 94922130551805,
+    Swim = 134530128383903,
+    ClimbAnim = 97824616490448,
+    Animation1 = 110211186840347,
+    Animation2 = 114191137265065
+},
+
+["Wicked Popular"] = {
+    WalkAnim = 92072849924640,
+    RunAnim = 72301599441680,
+    JumpAnim = 104325245285198,
+    FallAnim = 121152442762481,
+    SwimIdle = 113199415118199,
+    Swim = 99384245425157,
+    ClimbAnim = 131326830509784,
+    Animation1 = 118832222982049,
+    Animation2 = 76049494037641
+},
+
+["Catwalk Glam"] = {
+    WalkAnim = 109168724482748,
+    RunAnim = 81024476153754,
+    JumpAnim = 116936326516985,
+    FallAnim = 92294537340807,
+    SwimIdle = 98854111361360,
+    Swim = 134591743181628,
+    ClimbAnim = 119377220967554,
+    Animation1 = 133806214992291,
+    Animation2 = 94970088341563
+},
+
+["Wicked Dancing Through Life"] = {
+    WalkAnim = 73718308412641,
+    RunAnim = 135515454877967,
+    JumpAnim = 78508480717326,
+    FallAnim = 78147885297412,
+    SwimIdle = 129183123083281,
+    Swim = 110657013921774,
+    ClimbAnim = 129447497744818,
+    Animation1 = 92849173543269,
+    Animation2 = 132238900951109
+},
+
+["Amazon Unboxed"] = {
+    WalkAnim = 90478085024465,
+    RunAnim = 134824450619865,
+    JumpAnim = 121454505477205,
+    FallAnim = 94788218468396,
+    SwimIdle = 129126268464847,
+    Swim = 105962919001086,
+    ClimbAnim = 121145883950231,
+    Animation1 = 98281136301627,
+    Animation2 = nil
 },
 
 ["Anciano"] = {
@@ -386,7 +472,7 @@ Instance.new("UICorner",icon)
 
 -- GUI PRINCIPAL
 local gui = Instance.new("Frame")
-gui.Size = UDim2.new(0,300,0,350)
+gui.Size = UDim2.new(0,300,0,250)
 gui.Position = UDim2.new(0.5,-150,0.5,-175)
 gui.BackgroundColor3 = Color3.fromRGB(25,25,25)
 gui.Visible = false
