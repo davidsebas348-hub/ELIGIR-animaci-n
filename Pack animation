@@ -64,17 +64,7 @@ local PACKS = {
     Animation1 = 616006778,
     Animation2 = 616008087
 },
-["CatWalk Glam"] = {
-    WalkAnim = 109168724482748,
-    RunAnim = 81024476153754,
-    JumpAnim = 116936326516985,
-    FallAnim = 92294537340807,
-    SwimIdle = 18537387180,
-    Swim = 18537389531,
-    ClimbAnim = 119377220967554,
-    Animation1 = 133806214992291,
-    Animation2 = 94970088341563
-},
+
 ["Astronauta"] = {
     WalkAnim = 891667138,
     RunAnim = 891636393,
@@ -98,17 +88,18 @@ local PACKS = {
     Animation2 = 1069987858
 },
 
-    ["Zombie"] = {
-        WalkAnim = 10921355261,
-        RunAnim = 616163682,
-        JumpAnim = 10921351278,
-        FallAnim = 10921350320,
-        SwimIdle = 10921353442,
-        Swim = 10921352344,
-        ClimbAnim = 10921343576,
-        Animation1 = 10921344533,
-        Animation2 = 10921345304
-    },
+["Zombie"] = {
+    WalkAnim = 3489174223,
+    RunAnim = 3489173414,
+    JumpAnim = 616161997,
+    FallAnim = 616157476,
+    SwimIdle = 10921353442,
+    Swim = 10921352344,
+    ClimbAnim = 616156119,
+    Animation1 = 3489171152,
+    Animation2 = 3489171152
+},
+    
 
     ["Juguete"] = {
     WalkAnim = 782843345,
@@ -409,19 +400,6 @@ local PACKS = {
     Animation1 = 16738333868,
     Animation2 = 16738334710
 },
-
-["Adiddas"] = {
-    WalkAnim = 122150855457006,
-    RunAnim = 82598234841035,
-    JumpAnim = 75290611992385,
-    FallAnim = 98600215928904,
-    SwimIdle = 913389285,
-    Swim = 913384386,
-    ClimbAnim = 88763136693023,
-    Animation1 = 122257458498464,
-    Animation2 = 102357151005774
-},
-
 
 ["Hombre Lobo"] = {
     WalkAnim = 1083178339,
