@@ -1,4 +1,4 @@
--- actualizado mi compa :v
+-- actualizado mi compa :v ( de njvro xD)
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -432,6 +432,32 @@ for name in pairs(PACKS) do
 end
 table.sort(packNames)
 
+-- Guardar el pack que está activo actualmente
+local CurrentPack = nil
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function ApplyPackToCharacter(packName)
+    local pack = PACKS[packName]
+    if not pack then return end
+    CurrentPack = packName
+
+    local character = LocalPlayer.Character
+    if not character then return end
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+    local animate = character:FindFirstChild("Animate")
+    if not animate then return end
+
+    for _, anim in pairs({"Walk","Run","Jump","Fall","SwimIdle","Swim","Climb"}) do
+        local animObj = animate:FindFirstChild(anim)
+        if animObj and pack[anim.."Anim"] then
+            animObj.AnimationId = "rbxassetid://"..pack[anim.."Anim"]
+        end
+    end
+end
+
 -- GUI
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AnimationEditorGUI"
@@ -585,39 +611,15 @@ for _,packName in ipairs(packNames) do
 
 end
 
--- Variable para guardar pack
-local CurrentPack = nil
-
--- Función para aplicar pack al Character
-local function ApplyPackToCharacter(packName)
-    local pack = PACKS[packName]
-    if not pack then return end
-    CurrentPack = packName
-
-    local character = LocalPlayer.Character
-    if not character then return end
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-    local animate = character:FindFirstChild("Animate")
-    if not animate then return end
-
-    for _, anim in pairs({"Walk","Run","Jump","Fall","SwimIdle","Swim","Climb"}) do
-        local animObj = animate:FindFirstChild(anim)
-        if animObj and pack[anim.."Anim"] then
-            animObj.AnimationId = "rbxassetid://"..pack[anim.."Anim"]
-        end
-    end
-end
-
 -- =======================
 -- Detectar respawn
 -- =======================
 LocalPlayer.CharacterAdded:Connect(function(newChar)
-    -- Espera que Animate esté listo
-    task.wait(1)
+    task.wait(1) -- Espera que el personaje cargue
+
     if CurrentPack then
-        -- Reaplica el pack varias veces en intervalos cortos por seguridad
-        for i=1,3 do
+        -- Reaplica el pack varias veces para asegurar que quede bien
+        for i = 1, 3 do
             ApplyPackToCharacter(CurrentPack)
             task.wait(0.3)
         end
